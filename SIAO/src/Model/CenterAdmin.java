@@ -1,15 +1,17 @@
 package Model;
 
 public class CenterAdmin {
-    //private int ida;
+    private int ida;
     private String login;
     private String password;
+    private Center center;
 
-    public void CenterAdmin(String login, String password){
-        this.login= login;
-        this.password= password;
+    public CenterAdmin(String login, String password, Center center) {
+        this.login = login;
+        this.password = password;
+        this.center = center;
     }
-/*
+
     public int getIda() {
         return ida;
     }
@@ -33,9 +35,19 @@ public class CenterAdmin {
     public void setPassword(String password) {
         this.password = password;
     }
-*/
-    public void seConnecter(String login, String password){
-        // des instructions pour se connecter
+
+    public Center getCenter() {
+        return center;
     }
 
+    public void seConnecter(String enteredLogin, String enteredPassword) {
+        if (enteredLogin.equals(login) && enteredPassword.equals(password)) {
+            System.out.println("Connexion réussie !");
+        } else {
+            System.out.println("Identifiant ou mot de passe incorrect !");
+        }
+    }
+
+
 }
+
