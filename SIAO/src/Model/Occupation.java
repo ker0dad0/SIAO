@@ -8,6 +8,7 @@ public class Occupation {
     //private Room room;  car on déjà défini les classe Bed avec Room.
 
 
+    // méthode constructeur: pour affecter un person dans un lit si y a des places (on va voir ça dans la partie Controller)
     public Occupation(PersonInNeed person, Bed bed /* Room room,*/ ) {
         this.person = person;
         this.bed = bed;
@@ -15,6 +16,7 @@ public class Occupation {
 
     }
 
+    // getters et setters
     public PersonInNeed getPerson() {
         return person;
     }
@@ -41,6 +43,7 @@ public class Occupation {
 
 
 
+    // méthode pour calculer la durée d'occupation d'un lit
     public int occupationTime() {
         long startTime = person.getStartDate().getTime();
         long endTime = person.getEndDate().getTime();
@@ -49,16 +52,20 @@ public class Occupation {
         return (int) diffDays;
     }
 
+
+    // méthode qui va changer le statut du lit et des informations du chambre après la nouvelle affectation
     public void affectationBed() {
         if (!bed.getState()) {
-            bed.setState(true);
-            bed.getRoom().setOccupiedBeds(bed.getRoom().getOccupiedBeds() + 1);
+            bed.setState(true);  // pour changer le statut du lit après affectation
+            bed.getRoom().setOccupiedBeds(bed.getRoom().getOccupiedBeds() + 1); // pour changer le nombre de lits occupé dans la chambre
             System.out.println("Person " + person.getFirstName() + " " + person.getLastName() + " assigned to Bed " + bed.getIdb() + " in Room " + bed.getRoom().getIdr());
         } else {
+            // peur etre on va modifier ça
             System.out.println("Bed " + bed.getIdb() + " is already occupied.");
         }
     }
 
+    // méthode pour détruire une occupation après endDate
     public void deleteOccupation() {
         bed.setState(false);
         bed.getRoom().setOccupiedBeds(bed.getRoom().getOccupiedBeds() - 1);

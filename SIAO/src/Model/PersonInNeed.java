@@ -23,6 +23,7 @@ public class PersonInNeed {
         this.endDate = endDate;
     }
 
+    // getters et setters
     public int getIdp() {
         return idp;
     }
@@ -83,12 +84,14 @@ public class PersonInNeed {
         this.endDate = endDate;
     }
 
-// peut etre on va utiliser ces méthodes en bas dans la partie Controller.
+// peut etre on va utiliser ces méthodes en bas dans la partie Controller(CenterManager.java).
+    // méthode pour créer un PersonInNeed
     public void create() {
         // Instructions pour insérer la personne dans la base de données
         System.out.println("Person created successfully.");
     }
 
+    // méthode pour supprimer un PersonInNeed
     public void delete() {
         // Instructions pour supprimer la personne de la base de données
         System.out.println("Person deleted successfully.");

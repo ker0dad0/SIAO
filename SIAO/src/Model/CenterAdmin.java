@@ -6,12 +6,14 @@ public class CenterAdmin {
     private String password;
     private Center center;
 
+    // méthode constructeur
     public CenterAdmin(String login, String password, Center center) {
         this.login = login;
         this.password = password;
         this.center = center;
     }
 
+    // getters et setters
     public int getIda() {
         return ida;
     }
@@ -36,10 +38,13 @@ public class CenterAdmin {
         this.password = password;
     }
 
+    // méthode pour retourner les informations du centre
     public Center getCenter() {
         return center;
     }
 
+
+    // méthode de connexion du centerAdmin (on va la déplacer vers CenterManager.java)
     public void seConnecter(String enteredLogin, String enteredPassword) {
         if (enteredLogin.equals(login) && enteredPassword.equals(password)) {
             System.out.println("Connexion réussie !");

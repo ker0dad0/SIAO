@@ -11,9 +11,10 @@ public class Bed {
     public Bed(int idb, Room room) {
         this.idb = idb;
         this.room = room;
-        state = false;  // car on vient de créer un nouveau lit
+        state = false;  // car on vient de créer un nouveau lit donc il est libre
     }
 
+    //getters et setters
     public int getIdb() {
         return idb;
     }
@@ -35,6 +36,7 @@ public class Bed {
         return room.getIdr();
     }
 
+    // méthode pour retourner la lise des lits libres | on peut la définir danns le controller(CenterManger.java)
     public static List<Bed> getAvailablePlaces(List<Bed> beds) {
         List<Bed> availableBeds = new ArrayList<>();
         for (Bed bed : beds) {
@@ -44,7 +46,8 @@ public class Bed {
         }
         return availableBeds;
     }
-// à déf dans le controller
+
+    // méthode de type string pour nous retourner le statut d'un lit | on va la déplacer vers(CenterManager.java)
     public String showBed() {
         if (state) {
             return "Occupied";

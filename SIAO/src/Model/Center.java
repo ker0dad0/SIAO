@@ -6,15 +6,18 @@ public class Center {
     private String name;
     private String adresse;
     private int roomNumber;
-    private ArrayList<Room> listRoom;
+    private ArrayList<Room> listRoom;   // juste la liste des chambres dans notres chambre de type Room
 
     public Center(String name, String adresse, int roomNumber) {
         this.name = name;
         this.adresse = adresse;
         this.roomNumber = roomNumber;
-        listRoom = new ArrayList<>();
+        listRoom = new ArrayList<>();   // on initialise la liste des chambres (list vide) et on va la remplire
+                                       // en fonction de la construction de notre centre
     }
 
+
+// getters et setters
     public String getName() {
         return name;
     }
@@ -39,10 +42,12 @@ public class Center {
         return listRoom.size();
     }  */
 
+    // méthode pour retourner la liste des chambres
     public ArrayList<Room> getRooms() {
         return listRoom;
     }
 
+    // méthode pour retourner une chambre à travers son ID
     public Room getRoomById(int idr) {
         for (Room room : listRoom) {
             if (room.getIdr() == idr) {
@@ -52,10 +57,12 @@ public class Center {
         return null; // Retourne null si la chambre n'est pas trouvée
     }
 
+    // pour rajouter une chambre à notre centre
     public void addRoom(Room room) {
         listRoom.add(room);
     }
 
+    // méthode pour montrer le détail de notre centre
     public String showCenter() {
         StringBuilder centerInfo = new StringBuilder();
         centerInfo.append("Center Name: ").append(name).append("\n");
