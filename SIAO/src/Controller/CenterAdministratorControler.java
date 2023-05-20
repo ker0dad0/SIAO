@@ -6,7 +6,13 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class CenterAdministratorControler {
-
+    /**
+     * renvoi un booléen si l'authgetification a réussi
+     * @param login
+     * @param password
+     * @param name
+     * @return
+     */
     public static boolean toConnect(String login, String password, String name){
         
         Boolean result = false;

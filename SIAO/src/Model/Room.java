@@ -13,18 +13,14 @@ public class Room {
     private int numberOfPlaces;
     private ArrayList<Bed> listBed;
     private int number;
-    private String restriction;
     private boolean state;               // false si la chambre est vide, true si la chambre est occupée
     private int occupiedBeds;            // variable présente le nombre de lits occupés dans notre centre
 
     /**
-     * on a pas besoin de occupiedBeds puisqu'on peut l'avoir avecbune requet sql
      * il faut rajouter l'attribut restriction
      * la fonction get available place est à definr dans le controller
-     * il faut rajouter un libelle pour le room, c'est prévu dans le cahier de charge
      * il faut définir la méthode toString
      * on a pas besoin de l'attribut number of place puisqu'on peut l'avoir avec une requete sql
-     * comment on va garder dans la bd l'arrayList listBed
      * il faut definir la methode toString dans toute tes classes
      * @param idr
      * @param numberOfPlaces
@@ -110,12 +106,16 @@ public class Room {
 
         Statement statement = connection.createStatement();
         try {
-            statement.execute("INSERT INTO rooms VALUES (" + this.idr + "," + this.number + "," + this.restriction + "," + this.number + ");");
+            statement.execute("INSERT INTO rooms VALUES (" + this.idr + "," + this.number +  "," + this.number + ");");
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
+    /**
+     * supprimer un enregistrement dans la bd
+     * @throws SQLException
+     */
     public void delete() throws SQLException{
         DbConnexion dbConnexion = new DbConnexion();
         Connection connection = dbConnexion.openConnexion();

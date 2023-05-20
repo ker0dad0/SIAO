@@ -1,5 +1,10 @@
 package Model;
 
+import Controller.DbConnexion;
+
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Date;
 public class PersonInNeed {
     private int idp;
@@ -91,10 +96,51 @@ public class PersonInNeed {
         System.out.println("Person created successfully.");
     }
 
+    /**
+     *
+
     // méthode pour supprimer un PersonInNeed
     public void delete() {
         // Instructions pour supprimer la personne de la base de données
         System.out.println("Person deleted successfully.");
+    }
+    */
+    /**
+     * sauvegarder un demandeur dans la bd
+     */
+    public void save() throws SQLException {
+        DbConnexion dbConnexion = new DbConnexion();
+        Connection connection = dbConnexion.openConnexion();
+
+        Statement statement = connection.createStatement();
+        try {
+            statement.execute("INSERT INTO personinNeed VALUES ("
+                    + this.getIdp() + ","
+                    + this.getAge() +  ","
+                    + this.getFirstName() + ","
+                    + this.getLastName() + ","
+                    + this.getGender() + ","
+                    + this.getSsNumber() + ","
+                    + this.getStartDate() + ","
+                    + this.getEndDate() + ");");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * supprimer un enregistrement dans de demandeur dans la bd
+     */
+    public void delete() throws SQLException{
+        DbConnexion dbConnexion = new DbConnexion();
+        Connection connection = dbConnexion.openConnexion();
+        Statement statement = connection.createStatement();
+
+        try{
+            statement.execute("DELETE FROM personinNeed WHERE  idp =" +  this.getIdp());
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }
 

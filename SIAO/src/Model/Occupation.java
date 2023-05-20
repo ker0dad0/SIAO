@@ -1,15 +1,22 @@
 package Model;
+import Controller.DbConnexion;
 import Model.Bed;
+
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Date;
 
 public class Occupation {
+    private int ido;
     private PersonInNeed person;
     private Bed bed;
     //private Room room;  car on déjà défini les classe Bed avec Room.
 
 
     // méthode constructeur: pour affecter un person dans un lit si y a des places (on va voir ça dans la partie Controller)
-    public Occupation(PersonInNeed person, Bed bed /* Room room,*/ ) {
+    public Occupation(PersonInNeed person, Bed bed /* Room room,*/ , int ido) {
+        this.ido = ido;
         this.person = person;
         this.bed = bed;
        // this.room = room;
@@ -71,5 +78,30 @@ public class Occupation {
         bed.getRoom().setOccupiedBeds(bed.getRoom().getOccupiedBeds() - 1);
         System.out.println("Occupation deleted successfully. Bed " + bed.getIdb() + " in Room " + bed.getRoom().getIdr() + " is now vacant.");
     }
+
+    public void save() throws SQLException {
+        DbConnexion dbConnexion = new DbConnexion();
+        Connection connection = dbConnexion.openConnexion();
+
+        Statement statement = connection.createStatement();
+        try {
+            statement.execute("INSERT INTO rooms VALUES (" + this.ido + "," + this.getBed().getIdb() +  "," + this.getRoom().getIdr() + ");");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void  delete() throws SQLException {
+            DbConnexion dbConnexion = new DbConnexion();
+            Connection connection = dbConnexion.openConnexion();
+            Statement statement = connection.createStatement();
+
+            try{
+                statement.execute("DELETE FROM occupation WHERE  ido =" +  this.ido);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+    }
+
 }
 
