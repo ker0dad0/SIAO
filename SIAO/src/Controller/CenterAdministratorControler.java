@@ -8,16 +8,17 @@ import java.sql.Statement;
 public class CenterAdministratorControler {
     /**
      * renvoi un booléen si l'authgetification a réussi
+     * tu vas te servir du retour de la fonction pour faire l'authentification
      * @param login
      * @param password
-     * @param name
      * @return
      */
-    public static boolean toConnect(String login, String password, String name){
+    public static boolean toConnect(String login, String password){
         
         Boolean result = false;
         DbConnexion dbConnexion = new DbConnexion();
         Connection connection =  dbConnexion.openConnexion();
+        final String name = "admin";
 
         Statement statement = null;
         try {

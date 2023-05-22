@@ -122,7 +122,6 @@ public class PersonInNeed {
                     + this.getSsNumber() + "','"
                     + this.getStartDate() + "','"
                     + this.getEndDate() + "');");
-            statement.close();
         } catch (Exception e) {
             e.printStackTrace();
         }

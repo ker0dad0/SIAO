@@ -34,6 +34,8 @@ public class Center {
         return roomNumber;
     }
 
+    public void setAdresse(String adresse){ this.adresse = adresse;}
+
     public void setRoomNumber(int roomNumber) {
         this.roomNumber = roomNumber;
     }

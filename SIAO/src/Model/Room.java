@@ -25,9 +25,10 @@ public class Room {
      * @param idr
      * @param numberOfPlaces
      */
-    public Room(int idr, int numberOfPlaces) {
+    public Room(int idr, int numberOfPlaces, int number) {
         this.idr = idr;
         this.numberOfPlaces = numberOfPlaces;
+        this.number = number;
         state = false;                  // false car on vient de créer une nouvelle chambre et y a encore des places libres
         listBed = new ArrayList<>();// on initialise la liste des beds (list vide) et on va la remplire
         this.listBed = listBed;                                // en fonction du nombre de lits de la chambre

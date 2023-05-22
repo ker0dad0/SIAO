@@ -73,4 +73,35 @@ public class RoomController {
     public static Room  showRoom(Room room){
         return  room;
     }
+
+    /**
+     * get la liste de toutes les salles du centre
+     */
+    public  static ArrayList<Room> getAllRooms(){
+
+        DbConnexion dbConnexion = new DbConnexion();
+        Connection connection = dbConnexion.openConnexion();
+         ArrayList<Room> rooms = new ArrayList<>();
+
+        Statement statement = null;
+
+        try {
+            statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM rooms;");
+
+            while (resultSet.next()) {
+
+                Room room = new Room(resultSet.getInt("idr"),
+                        resultSet.getInt("numberOfPlaces"),
+                        resultSet.getInt("numero")
+                );
+                room.setState(resultSet.getBoolean("state"));
+                 rooms.add(room);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return rooms;
+    }
 }
