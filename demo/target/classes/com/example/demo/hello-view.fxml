@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.HelloController">
+   <children>
+      <AnchorPane fx:id="main_form" prefHeight="200.0" prefWidth="200.0">
+         <children>
+            <AnchorPane layoutX="-6.0" onDragDetected="#loginAdmin" prefHeight="435.0" prefWidth="623.0" AnchorPane.rightAnchor="-4.400000000000091">
+               <children>
+                  <Label layoutX="264.0" layoutY="95.0" text="Welcome">
+                     <font>
+                        <Font name="Tahoma" size="18.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="login" layoutX="190.0" layoutY="169.0" onAction="#loginAdmin" prefHeight="30.0" prefWidth="220.0" promptText="Login" />
+                  <Button fx:id="seConnecter" layoutX="258.0" layoutY="281.0" mnemonicParsing="false" onAction="#loginAdmin" text="Se connecter" />
+                  <PasswordField fx:id="password" layoutX="190.0" layoutY="230.0" onAction="#loginAdmin" prefHeight="30.0" prefWidth="220.0" promptText="password" />
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
+   </children>
+</StackPane>
+
