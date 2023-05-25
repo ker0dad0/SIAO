@@ -11,6 +11,7 @@ import java.util.Date;
 public class PersonInNeedController {
     /**
      * renvoi un booléen si la personne est déjà logé
+     *
      * @param idp
      * @return
      * @throws SQLException
@@ -27,16 +28,17 @@ public class PersonInNeedController {
             idps.add(resultSet.getInt("idp"));
         }
 
-        if(idps.contains(idp)){
+        if (idps.contains(idp)) {
             return true;
-        }
-        else {
-            return  false;
+        } else {
+            return false;
         }
     }
+
     /**
      * enregistrer un nouvel utilsateur
-     * @param idp // ici on va renvoyer un attribut au depart null pour creer l'objet
+     *
+     * @param idp       // ici on va renvoyer un attribut au depart null pour creer l'objet
      * @param age
      * @param firstName
      * @param lastName
@@ -45,19 +47,20 @@ public class PersonInNeedController {
      * @param startDate
      * @param endDate
      */
-    public static void registerPerson(int idp, int age, String firstName, String lastName, String gender, String ssNumber, Date startDate, Date endDate){
+    public static void registerPerson(int idp, int age, String firstName, String lastName, String gender, String ssNumber, Date startDate, Date endDate) {
         PersonInNeed personInNeed = new PersonInNeed(idp, age, firstName, lastName, gender, ssNumber, startDate, endDate);
 
         // sauvagarde de l'objet dans la bd
-        try{
+        try {
             personInNeed.save();
-        }catch (SQLException s){
+        } catch (SQLException s) {
             s.printStackTrace();
         }
     }
 
     /**
      * supprimer un demandeur de la bd
+     *
      * @param idp
      * @throws SQLException
      */
@@ -66,10 +69,10 @@ public class PersonInNeedController {
         Connection connection = dbConnexion.openConnexion();
         Statement statement = connection.createStatement();
 
-        try{
-            statement.execute("DELETE FROM personinNeed WHERE idp =" +  idp);
+        try {
+            statement.execute("DELETE FROM personinNeed WHERE idp =" + idp);
             statement.close();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -87,7 +90,7 @@ public class PersonInNeedController {
 
             while (resultSet.next()) {
 
-                PersonInNeed personInNeed  = new PersonInNeed(resultSet.getInt("idp"),
+                PersonInNeed personInNeed = new PersonInNeed(resultSet.getInt("idp"),
                         resultSet.getInt("age"),
                         resultSet.getString("firstName"),
                         resultSet.getString("lastName"),
@@ -103,5 +106,33 @@ public class PersonInNeedController {
         }
 
         return persons;
+    }
+
+
+    public static PersonInNeed getFalsePerson() throws SQLException {
+
+        DbConnexion dbConnexion = new DbConnexion();
+        Connection connection = dbConnexion.openConnexion();
+        Statement statement = connection.createStatement();
+
+
+            statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT idp, firstName, lastName FROM personinneed WHERE idp = MAX(idp);");
+
+
+
+                PersonInNeed personInNeed = new PersonInNeed(
+                        resultSet.getInt("idp"),
+                        0,
+                        resultSet.getString("firstName"),
+                        resultSet.getString("lastName"),
+                        null,
+                        null,
+                        null,
+                        null
+                );
+
+
+        return personInNeed;
     }
 }

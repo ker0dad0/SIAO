@@ -85,7 +85,11 @@ public class Occupation {
 
         Statement statement = connection.createStatement();
         try {
-            statement.execute("INSERT INTO rooms VALUES (" + this.ido + "," + this.getBed().getIdb() +  "," + this.getRoom().getIdr() + ");");
+            statement.execute("INSERT INTO occupations (idb, idp, startDate, endDate) VALUES ('"
+                    + this.getBed().getIdb() +  "','"
+                    + this.getPerson().getIdp() + "','"
+                    + this.getPerson().getStartDate() + "','"
+                    + this.getPerson().getEndDate() + "');");
         } catch (Exception e) {
             e.printStackTrace();
         }
