@@ -1,9 +1,12 @@
 package com.example.demo;
-import com.example.demo.Database
+
+import com.example.demo.Database;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
@@ -34,24 +37,25 @@ public class HelloController implements Initializable {
     private PasswordField password;
 
     @FXML
-    private Button seConnecter;
+    private Button connecter;
 
     // DATABASE Tools
     private Connection connect;
     private PreparedStatement prepare;
     private ResultSet result;
 
-    // NOW LET'S CREATE OUR DATABASE
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        // Code d'initialisation
+    }
 
-
-    public void loginAdmin() {
-
+    @FXML
+    public void loginAdmin(ActionEvent event) {
         String sql = "SELECT * FROM centersadmin WHERE login = ? and password = ?";
 
         connect = Database.connectDb();
 
-        try { // IT WORKS GOOD :) NOW LET'S DESIGN THE DASHBOARD FORM :)
-
+        try {
             Alert alert;
 
             prepare = connect.prepareStatement(sql);
@@ -70,23 +74,22 @@ public class HelloController implements Initializable {
             } else {
                 if (result.next()) {
                     // THEN PROCEED TO DASHBOARD FORM
-
                     alert = new Alert(AlertType.INFORMATION);
                     alert.setTitle("Information Message");
                     alert.setHeaderText(null);
-                    alert.setContentText("Connecter avec succès !");
+                    alert.setContentText("Connecté avec succès !");
                     alert.showAndWait();
 
                     // TO HIDE THE LOGIN FORM
-                    seConnecter.getScene().getWindow().hide();
+                    Stage currentStage = (Stage) connecter.getScene().getWindow();
+                    currentStage.hide();
 
-                    // LINK YOUR DASHBOARD
-                    Parent root = FXMLLoader.load(getClass().getResource("dashboard.fxml"));
-
+                    // LOAD DASHBOARD
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("dashboard.fxml"));
+                    Parent root = loader.load();
                     Stage stage = new Stage();
-                    Scene scene = new Scene(root);
-
-                    stage.setScene(scene);
+                    stage.initStyle(StageStyle.UNDECORATED);
+                    stage.setScene(new Scene(root));
                     stage.show();
                 } else {
                     // THEN ERROR MESSAGE WILL APPEAR
@@ -97,13 +100,21 @@ public class HelloController implements Initializable {
                     alert.showAndWait();
                 }
             }
-        } catch (Exception e) {
+        } catch (SQLException | IOException e) {
             e.printStackTrace();
+        } finally {
+            // Close database resources
+            try {
+                if (result != null)
+                    result.close();
+                if (prepare != null)
+                    prepare.close();
+                if (connect != null)
+                    connect.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        // Code d'initialisation
-    }
 }
+

@@ -8,10 +8,15 @@ import Model.PersonInNeed;
 import Model.Room;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -68,6 +73,12 @@ public class dashboardController implements Initializable {
     @FXML
     private TextField show_person;
 
+    @FXML
+    private Button deconnexion_btn;
+
+    @FXML
+    private TextField number_of_places;
+
 
 
     public void switchForm(ActionEvent event) {
@@ -88,25 +99,59 @@ public class dashboardController implements Initializable {
 
         }
     }
+
     private String s;
+    private String m;
+    public void showNumberOfPlaces() throws SQLException {
+        DbConnexion dbConnexion = new DbConnexion();
+        Connection connection = dbConnexion.openConnexion();
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery("SELECT count(*) FROM beds WHERE state = 0;");
+
+        if (resultSet.next()) {
+            int count = resultSet.getInt(1); // Récupérer la valeur de la première colonne
+            String result = Integer.toString(count); // Convertir en chaîne de caractères
+
+            String s = "12";
+            number_of_places.setText(s);
+        }
+    }
+
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+
         s = "affecter personne";
+        m = "dkvkdsfvdl";
         show_person.setText(s);
+        number_of_places.setText(m);
     }
 
 
     public void regiterPerson(ActionEvent event) {
         if (event.getSource() == ajouter ) {
             PersonInNeedController.registerPerson(0, Integer.parseInt(age.getText()), first_name.getText(), last_name.getText(), gender.getText(), numberss.getText(), java.sql.Date.valueOf(start_date.getValue()), java.sql.Date.valueOf(end_date.getValue()));
+            // Réinitialiser les champs après l'ajout
+            first_name.setText("");
+            last_name.setText("");
+            age.setText("");
+            numberss.setText("");
+            start_date.setValue(null);
+            end_date.setValue(null);
+            gender.setText("");
         }
     }
 
-
+    /***
+     *  méthode pour afficher l'id et le nom et prenom
+     *  de la personne qu'on vient de saisir ses informations dans la page affecter.
+     * @return
+     * @throws SQLException
+     */
     public String showPerson() throws SQLException {
         PersonInNeed person = PersonInNeedController.getFalsePerson();
-        String s = person.getIdp() + " " + person.getFirstName() + " " + person.getLastName();
+        String s = person.getIdp() + "::" + person.getFirstName() + "::" + person.getLastName();
         show_person.setText(s);
          return  s;
     }
@@ -146,6 +191,38 @@ public class dashboardController implements Initializable {
 
                 }
             }
+        }
+    }
+
+    /***
+     * Code pour effectuer la déconnexion
+     * afficher la fenêtre de connexion et fermer la fenêtre actuelle
+     * @param event
+     */
+    @FXML
+    private void deconnexion(ActionEvent event) {
+
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("hello-view.fxml"));
+            Parent root = loader.load();
+
+            // Obtenir la scène actuelle à partir de n'importe quel élément de l'interface utilisateur
+            Scene currentScene = deconnexion_btn.getScene();
+
+            // Créer une nouvelle scène avec la fenêtre de connexion
+            Scene scene = new Scene(root);
+
+            // Obtenir la fenêtre principale à partir de la scène actuelle
+            Stage primaryStage = (Stage) currentScene.getWindow();
+
+            // Définir la nouvelle scène sur la fenêtre principale
+            primaryStage.setScene(scene);
+
+            // Afficher la fenêtre de connexion
+            primaryStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 

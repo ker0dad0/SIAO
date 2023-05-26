@@ -13,7 +13,7 @@ import javafx.stage.Stage
 class HelloApplication extends Application {
     @Override
     void start(Stage stage) {
-        def fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("dashboard.fxml"))
+        def fxmlLoader = new FXMLLoader(getClass().getResource("dashboard.fxml"))
         def scene = new Scene(fxmlLoader.load() as Parent, 1100, 600)
         stage.setTitle("Hello!")
         stage.setScene(scene)
