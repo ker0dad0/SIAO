@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.stage.Stage?>
+<?import javafx.scene.paint.Color?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.example.demo.dashboardController"
+            prefHeight="400.0" prefWidth="600.0">
+
+
+    <fx:define>
+        <Color fx:id="backgroundColor" />
+    </fx:define>
+
+
+
+    <Button text="Fermer" onAction="#closeDetails" />
+    <!-- Bouton pour fermer la fenêtre des détails -->
+
+    <!-- ... autres éléments de votre interface utilisateur ... -->
+
+</AnchorPane>
+
